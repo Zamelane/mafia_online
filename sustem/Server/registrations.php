@@ -213,6 +213,31 @@ $v +=1;
 } elseif ($func =='dates') {
     $s =file_get_contents('room/'.$room_id.'time2.txt') . ':' . file_get_contents('room/'.$room_id.'time.txt');
     print_r($s);
+} elseif ($func =='load_player_role') {
+    $type =$_GET['type'];
+    if ($type == 1) {
+    $login = $_GET['login'];
+    $pass = $_GET['pass'];
+    $room_id =$_GET['room_id'];
+    if (file_exists('users/'.$login.'.txt')) {
+ $apiCode =file_get_contents('users/'.$login.'.txt');
+ $pass2 =file_get_contents('users/'.$apiCode.'/pass.txt');
+ if ($pass ==$pass2) {
+    $array =file_get_contents('room/'.$room_id.'/play_gen.txt');
+    $role =json_decode($array);
+    foreach ($role as $array) {
+        if ($array[0] ==$login) {
+            print_r($array[1]);
+        }
+    }
+    //print_r($role);
+ } else {
+    print_r('error_login_acc');
+ }
+    } else {
+
+    }
+}
 }
 
 
