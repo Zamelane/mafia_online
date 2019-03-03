@@ -234,11 +234,43 @@ $v +=1;
  } else {
     print_r('error_login_acc');
  }
-    } else {
-
+    } 
+} elseif ($type == 2) {
+    $login = $_GET['login'];
+    $pass = $_GET['pass'];
+    $room_id =$_GET['room_id'];
+    if (file_exists('users/'.$login.'.txt')) {
+ $apiCode =file_get_contents('users/'.$login.'.txt');
+ $pass2 =file_get_contents('users/'.$apiCode.'/pass.txt');
+ if ($pass ==$pass2) {
+    $array =file_get_contents('room/'.$room_id.'/play_gen.txt');
+    $role =json_decode($array);
+    foreach ($role as $array) {
+        if ($array[0] ==$login) {
+            sert($array[1]);
+        }
     }
+
+    
+
+}
+}
 }
 }
 
-
+function sert($d){
+    if ($d ==2) {
+        $login2 =$_GET['login2'];
+        $room_id =$_GET['room_id'];
+        $array =file_get_contents('room/'.$room_id.'/play_gen.txt');
+    $role =json_decode($array);
+        foreach ($role as $array) {
+        if ($array[0] ==$login2) {
+            print_r($array[1]);
+        }
+    }
+    }
+    //print_r($role);
+    
+}
 ?>
